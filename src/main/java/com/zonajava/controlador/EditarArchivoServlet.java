@@ -47,7 +47,7 @@ public class EditarArchivoServlet extends HttpServlet {
             System.out.println("Error al editar el registro: " + e.getMessage());
         }
         
-        // 5. Regresamos al panel recargado
-        response.sendRedirect("admin.jsp");
+        // CORRECCIÓN: Regresamos al panel usando la ruta segura
+        response.sendRedirect(request.getContextPath() + "/admin.jsp?status=editado&tab=trabajos");
     }
 }

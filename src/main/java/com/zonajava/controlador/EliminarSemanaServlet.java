@@ -24,6 +24,7 @@ public class EliminarSemanaServlet extends HttpServlet {
             ps.executeUpdate();
         } catch (Exception e) { }
         
-        response.sendRedirect("admin.jsp?status=eliminado&tab=semanas");
+        // CORRECCIÓN: Ruta segura
+        response.sendRedirect(request.getContextPath() + "/admin.jsp?status=eliminado&tab=semanas");
     }
 }

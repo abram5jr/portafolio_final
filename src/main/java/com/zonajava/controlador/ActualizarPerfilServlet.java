@@ -41,7 +41,7 @@ public class ActualizarPerfilServlet extends HttpServlet {
             System.out.println("Error al actualizar perfil: " + e.getMessage());
         }
         
-        // Redirigir lanzando la alerta de éxito en el admin
-        response.sendRedirect("admin.jsp?status=editado&tab=perfil");
+        // CORRECCIÓN: Redirigir de forma segura en Render usando getContextPath()
+        response.sendRedirect(request.getContextPath() + "/admin.jsp?status=editado&tab=perfil");
     }
 }

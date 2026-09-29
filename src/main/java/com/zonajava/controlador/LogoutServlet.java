@@ -23,7 +23,7 @@ public class LogoutServlet extends HttpServlet {
             session.invalidate();
         }
         
-        // 3. Te redirigimos a la página de login
-        response.sendRedirect("login.jsp");
+        // CORRECCIÓN: Te redirigimos a la página de login con la ruta segura
+        response.sendRedirect(request.getContextPath() + "/login.jsp");
     }
 }

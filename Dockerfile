@@ -8,7 +8,8 @@ COPY src ./src
 RUN mvn clean package -DskipTests
 
 # Etapa 2: Servidor Tomcat para ejecutar la app
-FROM tomcat:9.0-jre17
+# AQUI ESTÁ LA CORRECCIÓN: Usamos Tomcat 10.1 para que soporte "jakarta"
+FROM tomcat:10.1-jre17
 # Limpiamos las apps por defecto de Tomcat
 RUN rm -rf /usr/local/tomcat/webapps/*
 # Copiamos tu proyecto compilado y lo renombramos a ROOT.war para que abra directamente

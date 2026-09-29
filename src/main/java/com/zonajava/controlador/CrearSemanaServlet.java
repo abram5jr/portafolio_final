@@ -29,6 +29,7 @@ public class CrearSemanaServlet extends HttpServlet {
             ps.executeUpdate();
         } catch (Exception e) { }
         
-        response.sendRedirect("admin.jsp?status=exito&tab=semanas");
+        // Redirigir de forma segura en Render usando getContextPath()
+        response.sendRedirect(request.getContextPath() + "/admin.jsp?status=exito&tab=semanas");
     }
 }

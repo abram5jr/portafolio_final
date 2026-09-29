@@ -39,7 +39,7 @@ public class RegistroUsuarioServlet extends HttpServlet {
             System.out.println("Error al registrar usuario: " + e.getMessage());
         }
         
-        // 3. Redirigimos al admin.jsp activando la notificación "registrado"
-        response.sendRedirect("admin.jsp?status=registrado&tab=usuarios");
+        // CORRECCIÓN: Redirigimos al admin.jsp activando la notificación "registrado" con ruta segura
+        response.sendRedirect(request.getContextPath() + "/admin.jsp?status=registrado&tab=usuarios");
     }
 }

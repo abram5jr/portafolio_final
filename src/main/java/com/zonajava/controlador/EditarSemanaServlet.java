@@ -31,6 +31,7 @@ public class EditarSemanaServlet extends HttpServlet {
             ps.executeUpdate();
         } catch (Exception e) { }
         
-        response.sendRedirect("admin.jsp?status=editado&tab=semanas");
+        // CORRECCIÓN: Ruta segura
+        response.sendRedirect(request.getContextPath() + "/admin.jsp?status=editado&tab=semanas");
     }
 }

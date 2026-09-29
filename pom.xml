@@ -13,7 +13,7 @@
     </properties>
     
     <dependencies>
-        <!-- Dependencia original de tu proyecto -->
+        <!-- Dependencia original de tu proyecto (Compatible con Tomcat 10) -->
         <dependency>
             <groupId>jakarta.platform</groupId>
             <artifactId>jakarta.jakartaee-api</artifactId>
@@ -28,6 +28,7 @@
             <version>8.0.33</version>
         </dependency>
         
+        <!-- API de Cloudinary para almacenamiento -->
         <dependency>
             <groupId>com.cloudinary</groupId>
             <artifactId>cloudinary-http44</artifactId>

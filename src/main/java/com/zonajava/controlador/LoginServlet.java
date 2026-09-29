@@ -42,10 +42,11 @@ public class LoginServlet extends HttpServlet {
                 session.setAttribute("usuarioLogueado", rs.getString("usuario"));
                 session.setAttribute("rolUsuario", rs.getString("rol"));
                 
-                response.sendRedirect("admin.jsp");
+                // CORRECCIÓN: Ruta segura
+                response.sendRedirect(request.getContextPath() + "/admin.jsp");
             } else {
-                // Credenciales incorrectas, lo regresamos al index
-                response.sendRedirect("login.jsp?error=1");
+                // Credenciales incorrectas, lo regresamos al index de forma segura
+                response.sendRedirect(request.getContextPath() + "/login.jsp?error=1");
             }
             
         } catch (Exception e) {

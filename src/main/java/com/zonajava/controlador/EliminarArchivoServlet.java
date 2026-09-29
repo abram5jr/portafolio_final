@@ -32,7 +32,7 @@ public class EliminarArchivoServlet extends HttpServlet {
             System.out.println("Error al eliminar: " + e.getMessage());
         }
         
-        // REDIRECCIÓN CORRECTA:
-        response.sendRedirect("admin.jsp?status=eliminado&tab=trabajos");
+        // CORRECCIÓN: Ruta segura
+        response.sendRedirect(request.getContextPath() + "/admin.jsp?status=eliminado&tab=trabajos");
     }
 }
