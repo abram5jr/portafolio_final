@@ -236,8 +236,8 @@
             </div>
         <% } %>
 
-        <!-- Formulario Conectado a tu Servlet -->
-        <form action="LoginServlet" method="POST">
+        <!-- AQUI ESTÁ LA CORRECCIÓN DE LA RUTA PARA RENDER -->
+        <form action="${pageContext.request.contextPath}/LoginServlet" method="POST">
             
             <div class="input-wrapper">
                 <input type="text" class="form-control-custom" name="txtUsuario" placeholder="Usuario o Correo" required autocomplete="off">

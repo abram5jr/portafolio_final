@@ -13,14 +13,22 @@
                 <h5 class="m-0" style="font-size: 1.1rem;">⬆️ SUBIR NUEVA EVIDENCIA</h5>
             </div>
             <div class="card-body p-4">
-                <form action="SubirArchivoServlet" method="POST" enctype="multipart/form-data">
+                <!-- FORMULARIO CONECTADO (CORREGIDO PARA RENDER) -->
+                <form action="${pageContext.request.contextPath}/SubirArchivoServlet" method="POST" enctype="multipart/form-data">
                     <div class="mb-4">
                         <label class="form-label">Seleccionar Semana</label>
                         <select class="form-select" name="semana" required>
                             <option value="" selected disabled>-- Elige una fase --</option>
-                            <option value="1">Semana 1 - Introducción al Curso</option>
-                            <option value="2">Semana 2 - Actividad de Desarrollo</option>
-                            <option value="3">Semana 3 - Fase de Pruebas</option>
+                            <%
+                                try {
+                                    Connection con = new Conexion().getConnection();
+                                    PreparedStatement psSemanas = con.prepareStatement("SELECT id, numero_semana, titulo_semana FROM semanas ORDER BY numero_semana ASC");
+                                    ResultSet rsSemanas = psSemanas.executeQuery();
+                                    while(rsSemanas.next()) {
+                                        out.print("<option value='" + rsSemanas.getInt("id") + "'>Semana " + rsSemanas.getInt("numero_semana") + " - " + rsSemanas.getString("titulo_semana") + "</option>");
+                                    }
+                                } catch(Exception e) {}
+                            %>
                         </select>
                     </div>
                     <div class="mb-4">
@@ -104,7 +112,8 @@
                                     <td class="text-end" style="white-space: nowrap;">
                                         
                                         <button class="btn btn-sm btn-neon btn-cyan-neon py-0 px-2" data-bs-toggle="modal" data-bs-target="#editModal<%= idEvidencia %>">✏️</button>
-                                        <a href="EliminarArchivoServlet?id=<%= idEvidencia %>" class="btn btn-sm btn-neon btn-danger-neon py-0 px-2" onclick="return confirm('¿Estás seguro de que deseas eliminar este registro?');" style="text-decoration: none;">❌</a>
+                                        <!-- ELIMINAR CORREGIDO PARA RENDER -->
+                                        <a href="${pageContext.request.contextPath}/EliminarArchivoServlet?id=<%= idEvidencia %>" class="btn btn-sm btn-neon btn-danger-neon py-0 px-2" onclick="return confirm('¿Estás seguro de que deseas eliminar este registro?');" style="text-decoration: none;">❌</a>
                                         
                                         <div class="modal fade text-start" id="editModal<%= idEvidencia %>" tabindex="-1" aria-hidden="true">
                                             <div class="modal-dialog modal-dialog-centered">
@@ -114,7 +123,8 @@
                                                         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                                                     </div>
                                                     <div class="modal-body p-4">
-                                                        <form action="EditarArchivoServlet" method="POST">
+                                                        <!-- EDITAR CORREGIDO PARA RENDER -->
+                                                        <form action="${pageContext.request.contextPath}/EditarArchivoServlet" method="POST">
                                                             <input type="hidden" name="idEvidencia" value="<%= idEvidencia %>">
                                                             
                                                             <div class="mb-3">

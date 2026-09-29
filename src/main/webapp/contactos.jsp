@@ -77,7 +77,8 @@
             <div class="card bg-transparent" style="border: 1px solid var(--neon-cyan); box-shadow: 0 0 15px rgba(0, 243, 255, 0.15); border-radius: 8px;">
                 <div class="card-body p-5">
                     
-                    <form action="EnviarMensajeServlet" method="POST">
+                    <!-- AQUI ESTA LA CORRECCION DE LA RUTA DEL FORMULARIO -->
+                    <form action="${pageContext.request.contextPath}/EnviarMensajeServlet" method="POST">
                         <div class="mb-4">
                             <label class="form-label" style="color: var(--neon-cyan); font-family: 'Orbitron', sans-serif; font-size: 0.85rem;">TU NOMBRE</label>
                             <input type="text" class="form-control" name="remitente" required 

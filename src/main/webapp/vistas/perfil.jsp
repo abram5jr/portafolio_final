@@ -30,8 +30,8 @@
         <h5 class="m-0" style="font-size: 1.1rem; font-weight: 600;">👤 INFORMACIÓN PÚBLICA</h5>
     </div>
     <div class="card-body p-1">
-        <!-- FORMULARIO CONECTADO AL SERVLET -->
-        <form action="ActualizarPerfilServlet" method="POST">
+        <!-- FORMULARIO CONECTADO AL SERVLET (CORREGIDO PARA RENDER) -->
+        <form action="${pageContext.request.contextPath}/ActualizarPerfilServlet" method="POST">
             <div class="row g-4 mb-4">
                 <div class="col-md-6">
                     <label class="form-label" style="color: var(--brand-purple);">Nombre Completo</label>
