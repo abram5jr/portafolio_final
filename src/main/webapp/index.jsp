@@ -49,23 +49,89 @@
             --card-bg: #121218;
         }
 
+        /* Modificación para soportar el fondo animado */
         body { 
-            background-color: var(--bg-dark); 
+            background-color: transparent; 
             color: #e0e0e0; 
             font-family: 'Poppins', sans-serif; 
-            background-image: radial-gradient(circle at center, #1a1a24 0%, #09090b 100%);
+            margin: 0;
+            overflow-x: hidden;
         }
+
+        /* --- INICIO DEL FONDO EXTREMO ANIMADO --- */
+        .animated-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            background-color: var(--bg-dark);
+            background-image: radial-gradient(circle at center, #1a1a24 0%, #09090b 100%);
+            overflow: hidden;
+        }
+
+        /* Orbes de luz flotantes */
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(90px);
+            opacity: 0.3;
+            animation: floatOrb 12s infinite ease-in-out alternate;
+        }
+        .orb-1 {
+            width: 400px;
+            height: 400px;
+            background: var(--neon-purple);
+            top: -10%;
+            left: -10%;
+        }
+        .orb-2 {
+            width: 350px;
+            height: 350px;
+            background: var(--neon-cyan);
+            bottom: 10%;
+            right: -5%;
+            animation-duration: 15s;
+            animation-delay: -5s;
+        }
+
+        /* Cuadrícula Cyberpunk 3D */
+        .cyber-grid {
+            position: absolute;
+            bottom: 0;
+            left: -50%;
+            width: 200%;
+            height: 60vh;
+            background-image: 
+                linear-gradient(rgba(0, 243, 255, 0.15) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(188, 19, 254, 0.15) 1px, transparent 1px);
+            background-size: 50px 50px;
+            transform: perspective(600px) rotateX(75deg) translateY(100px) translateZ(-200px);
+            animation: gridMove 3s linear infinite;
+            opacity: 0.7;
+        }
+
+        /* Animaciones */
+        @keyframes floatOrb {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(80px, 50px); }
+        }
+        @keyframes gridMove {
+            0% { transform: perspective(600px) rotateX(75deg) translateY(0) translateZ(-200px); }
+            100% { transform: perspective(600px) rotateX(75deg) translateY(50px) translateZ(-200px); }
+        }
+        /* --- FIN DEL FONDO ANIMADO --- */
 
         h1, h4, h5, .navbar-brand { font-family: 'Orbitron', sans-serif; text-transform: uppercase; text-shadow: 0 0 10px currentColor; letter-spacing: 2px; font-weight: 700; }
         .text-primary { color: var(--neon-cyan) !important; }
         .text-success { color: var(--neon-green) !important; }
 
-        .navbar { background-color: rgba(9, 9, 11, 0.95) !important; border-bottom: 2px solid var(--neon-purple); box-shadow: 0 0 15px rgba(188, 19, 254, 0.5); }
+        .navbar { background-color: rgba(9, 9, 11, 0.85) !important; border-bottom: 2px solid var(--neon-purple); box-shadow: 0 0 15px rgba(188, 19, 254, 0.5); backdrop-filter: blur(10px); }
         .nav-link { font-family: 'Orbitron', sans-serif; color: #e0e0e0 !important; font-size: 0.9rem; letter-spacing: 1px; text-transform: uppercase; transition: all 0.3s ease; }
         .nav-link:hover { color: var(--neon-cyan) !important; text-shadow: 0 0 8px var(--neon-cyan); }
 
-        .hero-section { padding: 140px 0 80px; }
-        /* Aquí cambiamos el border-radius de 10px a 50% para que sea un círculo perfecto */
+        .hero-section { padding: 140px 0 80px; position: relative; z-index: 1; }
         .profile-img { width: 200px; height: 200px; object-fit: cover; border-radius: 50%; border: 3px solid var(--neon-cyan); box-shadow: 0 0 25px rgba(0, 243, 255, 0.5); }
 
         /* Iconos de Redes Sociales */
@@ -88,11 +154,12 @@
             justify-content: center;
             gap: 10px;
             padding: 15px;
-            background: rgba(255, 255, 255, 0.02);
+            background: rgba(18, 18, 24, 0.6); /* Ligeramente transparente para ver el fondo */
             border: 1px solid #333;
             border-radius: 12px;
             width: 110px;
             height: 110px;
+            backdrop-filter: blur(5px);
             transition: all 0.3s ease;
         }
         .tech-item i {
@@ -111,7 +178,7 @@
             border-color: var(--neon-cyan);
             box-shadow: 0 5px 15px rgba(0,0,0,0.5), inset 0 0 15px rgba(0, 243, 255, 0.1);
             transform: translateY(-5px);
-            background: rgba(0, 243, 255, 0.05);
+            background: rgba(0, 243, 255, 0.1);
         }
         .tech-item:hover span {
             color: #fff;
@@ -125,10 +192,17 @@
         .btn-primary { background-color: transparent; border: 2px solid var(--neon-purple); color: var(--neon-purple); text-transform: uppercase; transition: 0.3s; }
         .btn-primary:hover { background-color: var(--neon-purple); color: #fff; box-shadow: 0 0 20px var(--neon-purple); }
 
-        .footer { padding: 30px 0; margin-top: 60px; border-top: 2px solid var(--neon-purple); font-family: 'Orbitron', sans-serif; letter-spacing: 1px;}
+        .footer { padding: 30px 0; margin-top: 60px; border-top: 2px solid var(--neon-purple); font-family: 'Orbitron', sans-serif; letter-spacing: 1px; position: relative; z-index: 1;}
     </style>
 </head>
 <body>
+
+<!-- CONTENEDOR DEL FONDO ANIMADO EXTREMO -->
+<div class="animated-bg">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="cyber-grid"></div>
+</div>
 
 <nav class="navbar navbar-expand-lg fixed-top shadow-sm">
     <div class="container">
