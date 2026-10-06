@@ -5,6 +5,7 @@
     String pubNombre = "Abraham Parejas Araujo";
     String pubProfesion = "Estudiante de Diseño y Programación Web | IESTP Andrés A. Cáceres Dorregaray";
     String pubSobreMi = "Soy un apasionado por la intersección entre el desarrollo web y la psicología visual. Me enfoco en aplicar exclusivamente la ley de anexo de Gestalt para crear interfaces intuitivas y equilibradas, tal como lo implementé en la creación de identidad para la tienda virtual Wasi. Además, busco constantemente la formalización profesional, manteniéndome actualizado tanto en nuevas tecnologías de desarrollo como en procesos administrativos y tributarios para ofrecer soluciones integrales.";
+    String pubFotoUrl = "https://via.placeholder.com/200"; // Nueva variable para la foto
     
     try {
         Conexion conexionDB = new Conexion();
@@ -15,6 +16,11 @@
             pubNombre = rs.getString("nombre");
             pubProfesion = rs.getString("profesion");
             pubSobreMi = rs.getString("sobre_mi");
+            
+            // Validamos si hay una foto guardada en la base de datos
+            if (rs.getString("foto_url") != null && !rs.getString("foto_url").isEmpty()) {
+                pubFotoUrl = rs.getString("foto_url");
+            }
         }
     } catch (Exception e) { 
         // Si hay error de conexión, se mostrarán los datos por defecto de arriba
@@ -59,7 +65,8 @@
         .nav-link:hover { color: var(--neon-cyan) !important; text-shadow: 0 0 8px var(--neon-cyan); }
 
         .hero-section { padding: 140px 0 80px; }
-        .profile-img { width: 200px; height: 200px; object-fit: cover; border-radius: 10px; border: 3px solid var(--neon-cyan); box-shadow: 0 0 25px rgba(0, 243, 255, 0.5); }
+        /* Aquí cambiamos el border-radius de 10px a 50% para que sea un círculo perfecto */
+        .profile-img { width: 200px; height: 200px; object-fit: cover; border-radius: 50%; border: 3px solid var(--neon-cyan); box-shadow: 0 0 25px rgba(0, 243, 255, 0.5); }
 
         /* Iconos de Redes Sociales */
         .social-icon {
@@ -146,8 +153,8 @@
 
 <section class="hero-section text-center">
     <div class="container">
-        <!-- Foto de Perfil -->
-        <img src="img/perfil.jpg" alt="Foto de perfil" class="profile-img mb-4" onerror="this.src='https://via.placeholder.com/200'">
+        <!-- Foto de Perfil (Conectada a la base de datos) -->
+        <img src="<%= pubFotoUrl %>" alt="Foto de perfil" class="profile-img mb-4" onerror="this.src='https://via.placeholder.com/200'">
         
         <!-- Nombre y Título Dinámicos -->
         <h1 class="text-primary mb-2" style="font-size: 2.2rem;"><%= pubNombre %></h1>

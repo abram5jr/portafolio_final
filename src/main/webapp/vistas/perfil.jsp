@@ -5,6 +5,7 @@
     String dbNombre = "";
     String dbProfesion = "";
     String dbSobreMi = "";
+    String dbFotoUrl = "";
     
     try {
         Conexion conexionDB = new Conexion();
@@ -15,6 +16,7 @@
             dbNombre = rs.getString("nombre");
             dbProfesion = rs.getString("profesion");
             dbSobreMi = rs.getString("sobre_mi");
+            dbFotoUrl = rs.getString("foto_url");
         }
     } catch (Exception e) { }
 %>
@@ -22,7 +24,7 @@
 <div class="section-header">
     <span class="section-subtitle" style="color: var(--brand-cyan);">CONFIGURACIÓN</span>
     <h2 class="section-title">DATOS DEL <span style="color: var(--brand-purple);">USUARIO</span></h2>
-    <p class="section-desc">Modifica la información que se inyecta dinámicamente en tu portafolio público.</p>
+    <p class="section-desc">Modifica la información y tu foto de perfil para el portafolio público.</p>
 </div>
 
 <div class="admin-card" style="border-color: var(--brand-purple) !important;">
@@ -30,8 +32,13 @@
         <h5 class="m-0" style="font-size: 1.1rem; font-weight: 600;">👤 INFORMACIÓN PÚBLICA</h5>
     </div>
     <div class="card-body p-1">
-        <!-- FORMULARIO CONECTADO AL SERVLET (CORREGIDO PARA RENDER) -->
-        <form action="${pageContext.request.contextPath}/ActualizarPerfilServlet" method="POST">
+        <form action="${pageContext.request.contextPath}/ActualizarPerfilServlet" method="POST" enctype="multipart/form-data">
+            
+            <div class="mb-4">
+                <label class="form-label" style="color: var(--brand-purple);">Foto de Perfil (Opcional - Dejar vacío para mantener la actual)</label>
+                <input type="file" class="form-control" name="fotoPerfil" accept="image/*">
+            </div>
+
             <div class="row g-4 mb-4">
                 <div class="col-md-6">
                     <label class="form-label" style="color: var(--brand-purple);">Nombre Completo</label>
