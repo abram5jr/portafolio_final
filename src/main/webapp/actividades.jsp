@@ -99,37 +99,66 @@
         .btn-nav-login { background-color: transparent; border: 2px solid var(--neon-purple); color: var(--neon-purple); font-family: 'Orbitron', sans-serif; text-transform: uppercase; transition: 0.3s; }
         .btn-nav-login:hover { background-color: var(--neon-purple); color: #fff; box-shadow: 0 0 20px var(--neon-purple); }
 
-        /* DISEÑO DE LAS TARJETAS ESTÁTICAS */
+        /* --- REDISEÑO DE LAS TARJETAS DE SEMANA --- */
         .semana-card {
-            border: 1px solid var(--neon-green);
-            border-radius: 8px;
-            background-color: transparent;
+            border: 2px solid rgba(57, 255, 20, 0.3); /* Borde inicial más sutil */
+            border-radius: 12px;
+            background: rgba(18, 18, 24, 0.6); /* Efecto Glassmorphism */
+            backdrop-filter: blur(8px);
             min-height: 250px;
             display: flex;
             flex-direction: column;
-            transition: 0.3s;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Animación más fluida */
             position: relative;
+            overflow: hidden; /* Para contener brillos internos si se añaden */
         }
+        
+        .semana-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(135deg, rgba(57,255,20,0.1) 0%, transparent 50%, rgba(0,243,255,0.1) 100%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
         .semana-card:hover {
-            box-shadow: 0 0 20px rgba(57, 255, 20, 0.3);
-            transform: translateY(-5px);
+            border-color: var(--neon-green);
+            box-shadow: 0 0 25px rgba(57, 255, 20, 0.4), inset 0 0 15px rgba(57, 255, 20, 0.1);
+            transform: translateY(-8px) scale(1.02);
         }
+
+        .semana-card:hover::before {
+            opacity: 1;
+        }
+
         .semana-header {
-            border-bottom: 1px dashed var(--neon-green);
+            border-bottom: 2px dashed rgba(57, 255, 20, 0.4);
             color: var(--neon-green);
             font-family: 'Orbitron', sans-serif;
             font-weight: 700;
-            padding: 15px;
+            padding: 18px;
             text-align: center;
-            letter-spacing: 2px;
+            letter-spacing: 3px;
+            text-shadow: 0 0 5px rgba(57, 255, 20, 0.5);
+            background: rgba(0,0,0,0.2); /* Oscurece un poco el header */
         }
+        
         .semana-body {
-            padding: 20px;
+            padding: 25px;
             text-align: center;
             flex-grow: 1;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+            position: relative; /* Para asegurar que el texto quede sobre el ::before */
+            z-index: 1;
+        }
+
+        /* Títulos y textos dentro de la tarjeta */
+        .semana-body h5 {
+            color: #fff;
+            text-shadow: 0 0 8px rgba(255,255,255,0.3);
         }
 
         /* VISTA PREVIA ANIMADA (Aparece en Hover) */
@@ -140,16 +169,21 @@
             overflow: hidden;
             transition: all 0.4s ease-in-out;
             text-align: left;
+            background: rgba(0,0,0,0.3); /* Fondo para la vista previa */
+            border-radius: 6px;
+            padding: 0 10px; /* Padding animado */
         }
         .semana-card:hover .preview-archivos {
             max-height: 180px; 
             opacity: 1;
             visibility: visible;
             margin-top: 15px;
+            padding: 10px;
+            border: 1px solid rgba(0, 243, 255, 0.2);
         }
         .preview-item {
             font-size: 0.75rem;
-            color: #ccc;
+            color: #ddd;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis; 
@@ -158,23 +192,27 @@
             padding-left: 8px;
         }
 
+        /* Botón de la tarjeta */
         .btn-detalles {
             background-color: transparent;
-            border: 1px solid var(--neon-cyan);
+            border: 2px solid var(--neon-cyan);
             color: var(--neon-cyan);
             font-family: 'Orbitron', sans-serif;
             font-size: 0.9rem;
-            letter-spacing: 1px;
-            transition: 0.3s;
+            letter-spacing: 2px;
+            transition: all 0.3s ease;
             width: 100%;
-            padding: 10px;
+            padding: 12px;
             margin-top: 15px;
             text-transform: uppercase;
+            border-radius: 6px;
+            font-weight: 700;
         }
         .btn-detalles:hover {
             background-color: var(--neon-cyan);
             color: #000;
-            box-shadow: 0 0 15px rgba(0, 243, 255, 0.4);
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.6);
+            transform: scale(1.05);
         }
 
         /* PANTALLA EMERGENTE Y CONTENEDORES DE ARCHIVOS */
@@ -249,7 +287,6 @@
             <ul class="navbar-nav mx-auto">
                 <li class="nav-item px-3"><a class="nav-link" href="index.jsp">Mi Perfil</a></li>
                 <li class="nav-item px-3"><a class="nav-link" href="actividades.jsp">Actividades</a></li>
-                <!-- EL NUEVO ENLACE A CONTACTOS -->
                 <li class="nav-item px-3"><a class="nav-link" href="contactos.jsp">Contactos</a></li>
             </ul>
             <div class="d-flex align-items-center gap-3 mt-3 mt-lg-0">
@@ -289,11 +326,11 @@
                     </div>
                     <div class="semana-body">
                         <div>
-                            <h5 class="text-white mb-3" style="font-size: 1.1rem; text-transform: uppercase;"><%= tituloSemana %></h5>
+                            <h5 class="mb-3" style="font-size: 1.1rem; text-transform: uppercase;"><%= tituloSemana %></h5>
                             <p class="text-secondary small m-0" style="line-height: 1.6;"><%= descripcion %></p>
                             
                             <!-- SECCIÓN QUE APARECE SOLO AL PASAR EL MOUSE -->
-                            <div class="preview-archivos border-top border-secondary pt-2">
+                            <div class="preview-archivos pt-2 mt-2">
                                 <span class="d-block mb-2 text-muted" style="font-family: 'Orbitron'; font-size: 0.7rem; letter-spacing: 1px;">VISTA PREVIA:</span>
                                 
                                 <%
