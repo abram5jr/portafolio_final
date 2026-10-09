@@ -49,7 +49,6 @@
             --card-bg: #121218;
         }
 
-        /* Modificación para soportar el fondo animado */
         body { 
             background-color: transparent; 
             color: #e0e0e0; 
@@ -58,7 +57,7 @@
             overflow-x: hidden;
         }
 
-        /* --- INICIO DEL FONDO EXTREMO ANIMADO --- */
+        /* --- INICIO DEL FONDO DE BURBUJAS --- */
         .animated-bg {
             position: fixed;
             top: 0;
@@ -71,57 +70,30 @@
             overflow: hidden;
         }
 
-        /* Orbes de luz flotantes */
-        .orb {
+        .bubble {
             position: absolute;
             border-radius: 50%;
-            filter: blur(90px);
-            opacity: 0.3;
-            animation: floatOrb 12s infinite ease-in-out alternate;
-        }
-        .orb-1 {
-            width: 400px;
-            height: 400px;
-            background: var(--neon-purple);
-            top: -10%;
-            left: -10%;
-        }
-        .orb-2 {
-            width: 350px;
-            height: 350px;
-            background: var(--neon-cyan);
-            bottom: 10%;
-            right: -5%;
-            animation-duration: 15s;
-            animation-delay: -5s;
+            background: transparent;
+            box-shadow: 0 0 15px currentColor;
+            animation: floatUp infinite ease-in;
+            opacity: 0;
+            filter: blur(2px);
         }
 
-        /* Cuadrícula Cyberpunk 3D */
-        .cyber-grid {
-            position: absolute;
-            bottom: 0;
-            left: -50%;
-            width: 200%;
-            height: 60vh;
-            background-image: 
-                linear-gradient(rgba(0, 243, 255, 0.15) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(188, 19, 254, 0.15) 1px, transparent 1px);
-            background-size: 50px 50px;
-            transform: perspective(600px) rotateX(75deg) translateY(100px) translateZ(-200px);
-            animation: gridMove 3s linear infinite;
-            opacity: 0.7;
-        }
+        .bubble-1 { width: 30px; height: 30px; color: var(--neon-cyan); background: rgba(0, 243, 255, 0.2); left: 15%; animation-duration: 12s; animation-delay: 0s; }
+        .bubble-2 { width: 50px; height: 50px; color: var(--neon-purple); background: rgba(188, 19, 254, 0.2); left: 35%; animation-duration: 15s; animation-delay: 3s; }
+        .bubble-3 { width: 25px; height: 25px; color: var(--neon-green); background: rgba(57, 255, 20, 0.2); left: 55%; animation-duration: 10s; animation-delay: 1s; }
+        .bubble-4 { width: 60px; height: 60px; color: var(--neon-cyan); background: rgba(0, 243, 255, 0.2); left: 75%; animation-duration: 18s; animation-delay: 5s; }
+        .bubble-5 { width: 40px; height: 40px; color: var(--neon-purple); background: rgba(188, 19, 254, 0.2); left: 85%; animation-duration: 14s; animation-delay: 2s; }
+        .bubble-6 { width: 35px; height: 35px; color: var(--neon-cyan); background: rgba(0, 243, 255, 0.2); left: 5%; animation-duration: 16s; animation-delay: 6s; }
 
-        /* Animaciones */
-        @keyframes floatOrb {
-            0% { transform: translate(0, 0); }
-            100% { transform: translate(80px, 50px); }
+        @keyframes floatUp {
+            0% { transform: translateY(110vh) scale(0.5); opacity: 0; }
+            20% { opacity: 0.4; }
+            80% { opacity: 0.4; }
+            100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
         }
-        @keyframes gridMove {
-            0% { transform: perspective(600px) rotateX(75deg) translateY(0) translateZ(-200px); }
-            100% { transform: perspective(600px) rotateX(75deg) translateY(50px) translateZ(-200px); }
-        }
-        /* --- FIN DEL FONDO ANIMADO --- */
+        /* --- FIN DEL FONDO DE BURBUJAS --- */
 
         h1, h4, h5, .navbar-brand { font-family: 'Orbitron', sans-serif; text-transform: uppercase; text-shadow: 0 0 10px currentColor; letter-spacing: 2px; font-weight: 700; }
         .text-primary { color: var(--neon-cyan) !important; }
@@ -154,7 +126,7 @@
             justify-content: center;
             gap: 10px;
             padding: 15px;
-            background: rgba(18, 18, 24, 0.6); /* Ligeramente transparente para ver el fondo */
+            background: rgba(18, 18, 24, 0.6); 
             border: 1px solid #333;
             border-radius: 12px;
             width: 110px;
@@ -197,11 +169,14 @@
 </head>
 <body>
 
-<!-- CONTENEDOR DEL FONDO ANIMADO EXTREMO -->
+<!-- CONTENEDOR DEL FONDO DE BURBUJAS -->
 <div class="animated-bg">
-    <div class="orb orb-1"></div>
-    <div class="orb orb-2"></div>
-    <div class="cyber-grid"></div>
+    <div class="bubble bubble-1"></div>
+    <div class="bubble bubble-2"></div>
+    <div class="bubble bubble-3"></div>
+    <div class="bubble bubble-4"></div>
+    <div class="bubble bubble-5"></div>
+    <div class="bubble bubble-6"></div>
 </div>
 
 <nav class="navbar navbar-expand-lg fixed-top shadow-sm">
