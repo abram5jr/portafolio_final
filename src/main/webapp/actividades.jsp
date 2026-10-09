@@ -19,11 +19,75 @@
         }
 
         body { 
-            background-color: var(--bg-dark); 
+            background-color: transparent; 
             color: #e0e0e0; 
             font-family: 'Poppins', sans-serif; 
-            background-image: radial-gradient(circle at center, #1a1a24 0%, #09090b 100%);
+            margin: 0;
+            overflow-x: hidden;
         }
+
+        /* --- INICIO DEL FONDO COMBINADO (MANCHAS + BURBUJAS BRILLANTES) --- */
+        .animated-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            background-color: var(--bg-dark);
+            background-image: radial-gradient(circle at center, #1a1a24 0%, #09090b 100%);
+            overflow: hidden;
+        }
+
+        .corner-glow {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(150px);
+            opacity: 0.6;
+            z-index: 0;
+        }
+        .glow-purple {
+            width: 50vw;
+            height: 50vw;
+            max-width: 600px;
+            max-height: 600px;
+            background: var(--neon-purple);
+            top: -20%;
+            left: -10%;
+        }
+        .glow-cyan {
+            width: 55vw;
+            height: 55vw;
+            max-width: 700px;
+            max-height: 700px;
+            background: var(--neon-cyan);
+            bottom: -20%;
+            right: -10%;
+        }
+
+        .bubble {
+            position: absolute;
+            border-radius: 50%;
+            z-index: 1;
+            animation: floatUp infinite ease-in;
+            opacity: 0;
+            filter: blur(1px);
+        }
+
+        .bubble-1 { width: 35px; height: 35px; background: rgba(0, 243, 255, 0.7); box-shadow: 0 0 15px var(--neon-cyan); left: 15%; animation-duration: 12s; animation-delay: 0s; }
+        .bubble-2 { width: 55px; height: 55px; background: rgba(188, 19, 254, 0.7); box-shadow: 0 0 15px var(--neon-purple); left: 35%; animation-duration: 15s; animation-delay: 3s; }
+        .bubble-3 { width: 25px; height: 25px; background: rgba(57, 255, 20, 0.7); box-shadow: 0 0 15px var(--neon-green); left: 55%; animation-duration: 10s; animation-delay: 1s; }
+        .bubble-4 { width: 65px; height: 65px; background: rgba(0, 243, 255, 0.7); box-shadow: 0 0 15px var(--neon-cyan); left: 75%; animation-duration: 18s; animation-delay: 5s; }
+        .bubble-5 { width: 45px; height: 45px; background: rgba(188, 19, 254, 0.7); box-shadow: 0 0 15px var(--neon-purple); left: 85%; animation-duration: 14s; animation-delay: 2s; }
+        .bubble-6 { width: 40px; height: 40px; background: rgba(0, 243, 255, 0.7); box-shadow: 0 0 15px var(--neon-cyan); left: 5%; animation-duration: 16s; animation-delay: 6s; }
+
+        @keyframes floatUp {
+            0% { transform: translateY(110vh) scale(0.5); opacity: 0; }
+            20% { opacity: 0.85; }
+            80% { opacity: 0.85; }
+            100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
+        }
+        /* --- FIN DEL FONDO COMBINADO --- */
 
         h2, h4, h5, h6, .navbar-brand { font-family: 'Orbitron', sans-serif; text-transform: uppercase; text-shadow: 0 0 10px currentColor; letter-spacing: 2px; font-weight: 700; }
         .text-primary { color: var(--neon-cyan) !important; }
@@ -78,7 +142,7 @@
             text-align: left;
         }
         .semana-card:hover .preview-archivos {
-            max-height: 180px; /* Altura suficiente para expandirse */
+            max-height: 180px; 
             opacity: 1;
             visibility: visible;
             margin-top: 15px;
@@ -88,7 +152,7 @@
             color: #ccc;
             white-space: nowrap;
             overflow: hidden;
-            text-overflow: ellipsis; /* Pone "..." si el nombre es muy largo para la tarjetita */
+            text-overflow: ellipsis; 
             margin-bottom: 5px;
             border-left: 2px solid var(--neon-cyan);
             padding-left: 8px;
@@ -162,6 +226,18 @@
     </style>
 </head>
 <body>
+
+<!-- CONTENEDOR DEL FONDO: MANCHAS Y BURBUJAS -->
+<div class="animated-bg">
+    <div class="corner-glow glow-purple"></div>
+    <div class="corner-glow glow-cyan"></div>
+    <div class="bubble bubble-1"></div>
+    <div class="bubble bubble-2"></div>
+    <div class="bubble bubble-3"></div>
+    <div class="bubble bubble-4"></div>
+    <div class="bubble bubble-5"></div>
+    <div class="bubble bubble-6"></div>
+</div>
 
 <nav class="navbar navbar-expand-lg fixed-top shadow-sm">
     <div class="container">
@@ -350,4 +426,4 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-</html> 
+</html>
